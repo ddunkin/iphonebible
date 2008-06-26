@@ -1,0 +1,10 @@
+<div id="chapter_{{chapter.osis_id}}" title="{{chapter.title|escape}}" toolbarButtonHref="/bookmark?book={{book.osis_id}}&chapter={{chapter.number}}">
+  {% for verse in verses %}
+    {% if verse.get_bookmark %}
+    <sup><a href="/bookmark/{{verse.get_bookmark.key}}">{{verse.number}}</a></sup>
+    {% else %}
+    <sup>{{verse.number}}</sup>
+    {% endif %}
+    {{verse.text}}<br/>
+  {% endfor %}
+</ul>

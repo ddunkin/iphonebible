@@ -1,0 +1,8 @@
+<div id="bookmark_{{bookmark.key}}" title="{{bookmark.address|escape}}" class="panel" hideToolbarButton="true">
+  <h2>Comments</h2>
+  <p>{{bookmark.comments|escape}}</p>
+
+  <a class="whiteButton" href="/book/{{bookmark.chapter.book.work.osis_id}}/{{bookmark.chapter.book.osis_id}}/{{bookmark.chapter.number}}/{{bookmark.verse.number}}">Go To</a>
+  <a class="whiteButton" href="/bookmark/{{bookmark.key}}/email">Send Link</a>
+  <a class="whiteButton" href="/bookmark/{{bookmark.key}}/delete">Delete</a>
+</ul>

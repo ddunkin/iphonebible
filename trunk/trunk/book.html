@@ -1,0 +1,5 @@
+<ul id="book_{{book.osis_id}}" title="{{book.title|escape}}" toolbarButtonHref="/bookmark?book={{book.osis_id}}">
+  {% for chapter in chapters %}
+    <li><a href="/book/{{book.work.osis_id}}/{{book.osis_id}}/{{chapter.number}}">{{chapter.title|escape}}</a></li>
+  {% endfor %}
+</ul>
