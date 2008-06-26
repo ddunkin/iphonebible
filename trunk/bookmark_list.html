@@ -1,0 +1,10 @@
+<ul id="bookmarks" title="Bookmarks" hideToolbarButton="true">
+  {% if bookmarks %}
+    {% for bookmark in bookmarks %}
+    <li><a href="/bookmark/{{bookmark.key}}">{{bookmark.address}}</a></li>
+    {% endfor %}
+  {% else %}
+    <li>No bookmarks</li>
+  {% endif %}
+</ul>
+

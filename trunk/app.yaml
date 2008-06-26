@@ -1,0 +1,19 @@
+application: ipb
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /iui
+  static_dir: iui
+
+- url: /admin/.*
+  script: admin.py
+  login: admin
+
+- url: /loader
+  script: loader.py
+  login: admin
+
+- url: .*
+  script: main.py

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>iPhone Bible</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<style type="text/css" media="screen">@import "/iui/iui.css";</style>
+<script type="application/x-javascript" src="/iui/iui.js"></script>
+<!--
+<script type="application/x-javascript" src="http://10.0.1.2:1840/ibug.js"></script>
+-->
+</head>
+
+<body>
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a id="backButton" class="button" href="#"></a>
+        {% if user %}
+        <a id="toolbarButton" class="button" href="/bookmark">Bookmark</a>
+        {% endif %}
+    </div>
+    
+    <ul id="home" title="iPhone Bible" selected="true" hideToolbarButton="true">
+        <li><a href="#books">Books</a></li>
+        <li><a href="#searchForm">Search</a></li>
+        {% if user %}
+        <li><a href="/bookmark/">Bookmarks</a></li>
+        <li><a href="{{logout_url}}" target="_self">Logout</a></li>
+        {% else %}
+        <li><a href="{{login_url}}" target="_self">Login</a></li>
+        {% endif %}
+        <li><a href="#about">About</a></li>
+    </ul>
+    
+    <ul id="books" title="Books">
+        {% for book in books %}
+        <li><a href="/book/{{book.work.osis_id}}/{{book.osis_id}}">{{book.title|escape}}</a></li>
+        {% endfor %}
+    </ul>
+    
+    <form id="searchForm" title="Search" class="panel" method="POST" action="/search" hideToolbarButton="true">
+        <fieldset>
+            <div class="row">
+                <label>Search for:</label>
+                <input type="text" name="text"/>
+            </div>
+        </fieldset>
+        <a class="whiteButton" type="submit" href="#">Search</a>
+    </form>
+
+    <div id="about" title="About" class="panel" hideToolbarButton="true">
+        <h2>About iPhone Bible</h2>
+        <p>A simple iPhone Bible reader by Dave Dunkin. I did this as a way to
+        test out Google's App Engine.</p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,64 @@
+<form id="bookmarkForm" title="Bookmark" class="panel" method="POST" action="/bookmark" hideToolbarButton="true">
+    <h2>New Bookmark</h2>
+    <fieldset>
+        <div class="row">
+            <label>Book:</label>
+            <select id="bookSelect" name="book" onchange="bookChanged(this.value);">
+            {% for b in books %}
+                <option value="{{b.osis_id}}">{{b.title|escape}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="row">
+            <label>Chapter:</label>
+            <select id="chapterSelect" name="chapter" onchange="chapterChanged(this.value);"><option>1</option></select>
+        </div>
+        <div class="row">
+            <label>Verse:</label>
+            <select id="verseSelect" name="verse"><option>1</option></select>
+        </div>
+        <div class="row">
+            <label>Comments:</label>
+            <input type="text" name="comments"/>
+        </div>
+    </fieldset>
+    <a class="whiteButton" type="submit">Save</a>
+</form>
+<script>
+
+var bookData = {{bookdata}};
+var currentBook = null;
+
+window.setOptionCount = function(sel, count) {
+  while (sel.childNodes.length > count) {
+    sel.removeChild(sel.childNodes[count]);
+  }
+  for (var i = sel.childNodes.length; i < count; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = i + 1;
+    sel.appendChild(opt);
+  }
+};
+
+window.chapterChanged = function(chapter) {
+  var sel = $('verseSelect');
+  setOptionCount(sel, bookData[currentBook][chapter]);
+};
+
+window.bookChanged = function(bookId) {
+  var sel = $('chapterSelect');
+  currentBook = bookId;
+  setOptionCount(sel, bookData[currentBook]['chapterCount']);
+  chapterChanged(1);
+};
+
+{% if book %}
+$('bookSelect').value = '{{book.osis_id}}';
+bookChanged('{{book.osis_id}}');
+{% endif %}
+{% if chapter %}
+$('chapterSelect').value = {{chapter.number}};
+chapterChanged({{chapter.number}});
+{% endif %}
+
+</script>

@@ -1,0 +1,9 @@
+<ul id="searchResults" title="Search Results" hideToolbarButton="true">
+  {% if verses %}
+    {% for verse in verses %}
+    <li><a href="/book/{{verse.chapter.book.work.osis_id}}/{{verse.chapter.book.osis_id}}/{{verse.chapter.number}}/{{verse.number}}">{{verse.address|escape}}</a></li>
+    {% endfor %}
+  {% else %}
+    <li>No results</li>
+  {% endif %}
+</ul> 
