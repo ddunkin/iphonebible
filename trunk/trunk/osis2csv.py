@@ -34,26 +34,27 @@ def createCSV(osis_xml_file):
 
     logging.info('Beginning import')
     for book_node in osis_text_node.getElementsByTagName('div'):
-      book_count += 1
-      book_id = book_node.getAttribute('osisID')
-      book_title = getText(book_node.getElementsByTagName('title')[0]).encode('ascii', 'xmlcharrefreplace')
-      logging.info('Creating book %s', book_title)
-      books_writer.writerow([work_id, book_id, book_title])
+      if book_node.getAttribute('type') == 'book':
+        book_count += 1
+        book_id = book_node.getAttribute('osisID')
+        book_title = getText(book_node.getElementsByTagName('title')[0]).encode('ascii', 'xmlcharrefreplace')
+        logging.info('Creating book %s', book_title)
+        books_writer.writerow([work_id, book_id, book_title])
 
-      chapter_i = 0
-      for chapter_node in book_node.getElementsByTagName('chapter'):
-        chapter_id = chapter_node.getAttribute('osisID')
-        chapter_title = chapter_node.getAttribute('chapterTitle').encode('ascii', 'xmlcharrefreplace')
-        chapter_i += 1
-        logging.debug('Creating chapter %s', chapter_title)
-        chapters_writer.writerow([work_id, book_id, chapter_id, str(chapter_i), chapter_title])
+        chapter_i = 0
+        for chapter_node in book_node.getElementsByTagName('chapter'):
+          chapter_id = chapter_node.getAttribute('osisID')
+          chapter_title = chapter_node.getAttribute('chapterTitle').encode('ascii', 'xmlcharrefreplace')
+          chapter_i += 1
+          logging.debug('Creating chapter %s', chapter_title)
+          chapters_writer.writerow([work_id, book_id, chapter_id, str(chapter_i), chapter_title])
 
-        verse_i = 0
-        for verse_node in chapter_node.getElementsByTagName('verse'):
-          verse_id = verse_node.getAttribute('osisID')
-          verse_i += 1
-          verse_text = getText(verse_node).encode('ascii', 'xmlcharrefreplace')
-          verses_writer.writerow([work_id, book_id, chapter_id, verse_id, str(verse_i), verse_text])
+          verse_i = 0
+          for verse_node in chapter_node.getElementsByTagName('verse'):
+            verse_id = verse_node.getAttribute('osisID')
+            verse_i += 1
+            verse_text = getText(verse_node).encode('ascii', 'xmlcharrefreplace')
+            verses_writer.writerow([work_id, book_id, chapter_id, verse_id, str(verse_i), verse_text])
     
   logging.info('Import complete')
 
