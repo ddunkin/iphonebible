@@ -1,0 +1,1 @@
+iPhone Bible is a web-based Bible application for the iPhone and iPod Touch. It's really a proof-of-concept using Google App Engine, but it is useful on its own. The live version is available at http://ipb.appspot.com.
